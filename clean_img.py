@@ -8,8 +8,9 @@ model_name = "up2x-latest-no-denoise.pth"
 path_name = os.path.dirname(__file__)
 model_path = os.path.join(path_name, "src/model", model_name)
 
-def main(file_name):
-    upscaler = RealWaifuUpScaler(2, model_path, half=False, device="cpu")
+def main(file_name, gpu):
+    device = "cuda:0" if gpu else "cpu"
+    upscaler = RealWaifuUpScaler(2, model_path, half=False, device=device)
     Tile = 4
     Amplification = 2
 
@@ -28,6 +29,12 @@ def main(file_name):
     print("Compleated", t1 - t0)
 
 if __name__ == "__main__":
-    file_name = sys.argv[1]
-    print(file_name)
-    main(file_name)
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("file")
+    parser.add_argument("--gpu", action='store_true')
+    args = parser.parse_args()
+
+    print(f"Cleaning for: {args.file}")
+    main(args.file, args.gpu)
