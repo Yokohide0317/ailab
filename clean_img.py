@@ -1,10 +1,7 @@
 import os
 import sys
-#root_dir = "/Users/yokoda/workspace/yokoscripts/clean_img/"
-#sys.path.append(root_dir+"Real-CUGAN")
-sys.path.append("./src")
 import cv2
-from upcunet_v3 import RealWaifuUpScaler
+from src.upcunet_v3 import RealWaifuUpScaler
 from time import time as ttime
 
 
