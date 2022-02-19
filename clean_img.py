@@ -4,9 +4,12 @@ import cv2
 from src.upcunet_v3 import RealWaifuUpScaler
 from time import time as ttime
 
+model_name = "up2x-latest-no-denoise.pth"
+path_name = os.path.dirname(__file__)
+model_path = os.path.join(path_name, "src/model", model_name)
 
 def main(file_name):
-    upscaler = RealWaifuUpScaler(2, f"./src/model/up2x-latest-no-denoise.pth", half=False, device="cpu")
+    upscaler = RealWaifuUpScaler(2, model_path, half=False, device="cpu")
     Tile = 4
     Amplification = 2
 
