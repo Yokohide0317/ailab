@@ -1,3 +1,5 @@
+## This repository is forked from bilibili/ailab
+
 Real Cascade U-Nets for Anime Image Super Resolution
 -------------------------------------------
 
