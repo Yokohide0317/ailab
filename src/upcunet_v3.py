@@ -5,6 +5,7 @@ import os,sys
 import numpy as np
 root_path=os.path.abspath('.')
 sys.path.append(root_path)
+
 class SEBlock(nn.Module):
     def __init__(self, in_channels, reduction=8, bias=False):
         super(SEBlock, self).__init__()
@@ -30,6 +31,7 @@ class SEBlock(nn.Module):
         x0 = torch.sigmoid(x0)
         x = torch.mul(x, x0)
         return x
+
 class UNetConv(nn.Module):
     def __init__(self, in_channels, mid_channels, out_channels, se):
         super(UNetConv, self).__init__()
@@ -49,6 +51,7 @@ class UNetConv(nn.Module):
         if self.seblock is not None:
             z = self.seblock(z)
         return z
+
 class UNet1(nn.Module):
     def __init__(self, in_channels, out_channels, deconv):
         super(UNet1, self).__init__()
@@ -101,6 +104,7 @@ class UNet1(nn.Module):
         x3 = F.leaky_relu(x3, 0.1, inplace=True)
         z = self.conv_bottom(x3)
         return z
+
 class UNet1x3(nn.Module):
     def __init__(self, in_channels, out_channels, deconv):
         super(UNet1x3, self).__init__()
@@ -153,6 +157,7 @@ class UNet1x3(nn.Module):
         x3 = F.leaky_relu(x3, 0.1, inplace=True)
         z = self.conv_bottom(x3)
         return z
+
 class UNet2(nn.Module):
     def __init__(self, in_channels, out_channels, deconv):
         super(UNet2, self).__init__()
@@ -235,6 +240,7 @@ class UNet2(nn.Module):
 
         z = self.conv_bottom(x5)
         return z
+
 class UpCunet2x(nn.Module):#完美tile，全程无损
     def __init__(self, in_channels=3, out_channels=3):
         super(UpCunet2x, self).__init__()
@@ -358,6 +364,7 @@ class UpCunet2x(nn.Module):#完美tile，全程无损
         torch.cuda.empty_cache()
         if(w0!=pw or h0!=ph):res=res[:,:,:h0*2,:w0*2]
         return res#
+
 class UpCunet3x(nn.Module):#完美tile，全程无损
     def __init__(self, in_channels=3, out_channels=3):
         super(UpCunet3x, self).__init__()
@@ -481,6 +488,7 @@ class UpCunet3x(nn.Module):#完美tile，全程无损
         torch.cuda.empty_cache()
         if(w0!=pw or h0!=ph):res=res[:,:,:h0*3,:w0*3]
         return res
+
 class UpCunet4x(nn.Module):#完美tile，全程无损
     def __init__(self, in_channels=3, out_channels=3):
         super(UpCunet4x, self).__init__()
@@ -615,6 +623,7 @@ class UpCunet4x(nn.Module):#完美tile，全程无损
         if(w0!=pw or h0!=ph):res=res[:,:,:h0*4,:w0*4]
         res += F.interpolate(x00, scale_factor=4, mode='nearest')
         return res#
+
 class RealWaifuUpScaler(object):
     def __init__(self,scale,weight_path,half,device):
         weight = torch.load(weight_path, map_location="cpu")

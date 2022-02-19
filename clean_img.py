@@ -2,14 +2,14 @@ import os
 import sys
 #root_dir = "/Users/yokoda/workspace/yokoscripts/clean_img/"
 #sys.path.append(root_dir+"Real-CUGAN")
-sys.path.append("./")
+sys.path.append("./src")
 import cv2
 from upcunet_v3 import RealWaifuUpScaler
 from time import time as ttime
 
 
 def main(file_name):
-    upscaler = RealWaifuUpScaler(2, f"./model/up2x-latest-no-denoise.pth", half=False, device="cpu")
+    upscaler = RealWaifuUpScaler(2, f"./src/model/up2x-latest-no-denoise.pth", half=False, device="cpu")
     Tile = 4
     Amplification = 2
 
